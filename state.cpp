@@ -97,12 +97,17 @@ void State::iterate() {
   cost = best_cost;
 }
 
-void State::simulate() {
-  int last_cost = -1;
-  while (last_cost != cost) {
-    last_cost = cost;
-    iterate();
-    std::cout << *this;
+void State::simulate(std::mt19937& engine) {
+  int retries = 0;
+  while (cost != 0) {
+    *this = State(grid.dim, engine);
+    int last_cost = -1;
+    while (last_cost != cost) {
+      last_cost = cost;
+      iterate();
+    }
+    retries++;
   }
   std::cout << *this;
+  std::cout << "retries = " << retries << "\n \n";
 }

@@ -33,7 +33,7 @@ struct Grid {
     goal = calculate_goal(dim_);
     std::vector<int> grid_;
     grid_.reserve(dim_ * dim_);
-    for (int i = 0; i < dim_ * dim_; i++) {
+    for (int i = 1; i <= dim_ * dim_; i++) {
       grid_.push_back(i);
     }
     std::shuffle(std::begin(grid_), std::end(grid_), engine);

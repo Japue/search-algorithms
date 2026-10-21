@@ -43,5 +43,5 @@ struct State {
 
   // functions for the algorithm
   void iterate();
-  void simulate();
+  void simulate(std::mt19937& engine);
 };

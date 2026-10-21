@@ -18,9 +18,9 @@ int main(int argc, char* argv[]) {
   // setup the random input
   std::mt19937 engine(seed);
 
-  // playground
+  // initialize the state, output it, simulate until 0 is found
   State state(dim, engine);
   std::cout << state;
-  state.simulate();
+  state.simulate(engine);
   return 0;
 }

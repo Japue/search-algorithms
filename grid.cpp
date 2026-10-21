@@ -14,7 +14,7 @@ int calculate_total(const int dim) {
 
 int calculate_goal(const int dim) {
   int total = calculate_total(dim);
-  int goal = total / (2 * dim + 2);
+  int goal = total / dim;
   return goal;
 }
 
