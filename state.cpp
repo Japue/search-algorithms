@@ -10,61 +10,16 @@ std::ostream& operator<<(std::ostream &os, const State& state) {
   return os;
 }
 
-State State::swap_right(int vec_pos) {
-  if ((vec_pos + 1) % grid.dim == 0) {
-    return State(grid, cost); 
+State State::swap(int vec_i1, int vec_i2) {
+  if (vec_i1 < 0 || vec_i2 < 0 || vec_i1 >= grid.dim * grid.dim || vec_i2 >= grid.dim * grid.dim) {
+    return *this;
   }
 
   std::vector<int> old_grid = grid.grid;
   std::vector<int> new_grid = grid.grid;
 
-  new_grid[vec_pos] = old_grid[vec_pos + 1];
-  new_grid[vec_pos + 1] = old_grid[vec_pos];
-
-  Grid swapped_grid(grid.dim, grid.goal, new_grid);
-  return State(swapped_grid, swapped_grid.calculate_cost());
-}
-
-State State::swap_left(int vec_pos) {
-  if (vec_pos % grid.dim == 0) {
-    return State(grid, cost); 
-  }
-
-  std::vector<int> old_grid = grid.grid;
-  std::vector<int> new_grid = grid.grid;
-
-  new_grid[vec_pos] = old_grid[vec_pos - 1];
-  new_grid[vec_pos - 1] = old_grid[vec_pos];
-
-  Grid swapped_grid(grid.dim, grid.goal, new_grid);
-  return State(swapped_grid, swapped_grid.calculate_cost());
-}
-
-State State::swap_up(int vec_pos) {
-  if (vec_pos - grid.dim < 0) {
-    return State(grid, cost); 
-  }
-
-  std::vector<int> old_grid = grid.grid;
-  std::vector<int> new_grid = grid.grid;
-
-  new_grid[vec_pos] = old_grid[vec_pos - grid.dim];
-  new_grid[vec_pos - grid.dim] = old_grid[vec_pos];
-
-  Grid swapped_grid(grid.dim, grid.goal, new_grid);
-  return State(swapped_grid, swapped_grid.calculate_cost());
-}
-
-State State::swap_down(int vec_pos) {
-  if (vec_pos + grid.dim > grid.dim * grid.dim - 1) {
-    return State(grid, cost); 
-  }
-
-  std::vector<int> old_grid = grid.grid;
-  std::vector<int> new_grid = grid.grid;
-
-  new_grid[vec_pos] = old_grid[vec_pos + grid.dim];
-  new_grid[vec_pos + grid.dim] = old_grid[vec_pos];
+  new_grid[vec_i1] = old_grid[vec_i2];
+  new_grid[vec_i2] = old_grid[vec_i1];
 
   Grid swapped_grid(grid.dim, grid.goal, new_grid);
   return State(swapped_grid, swapped_grid.calculate_cost());
@@ -72,11 +27,10 @@ State State::swap_down(int vec_pos) {
 
 std::vector<State> State::do_swaps(int vec_i) {
   std::vector<State> states;
-  states.reserve(4);
-  states.push_back(swap_right(vec_i));
-  states.push_back(swap_left(vec_i));
-  states.push_back(swap_up(vec_i));
-  states.push_back(swap_down(vec_i));
+  states.reserve(grid.dim * grid.dim - 1 - vec_i);
+  for (int i = vec_i; i < grid.dim * grid.dim - 1; i++) {
+    states.push_back(swap(vec_i, i));
+  }
   return states;
 }
 

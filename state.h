@@ -35,10 +35,7 @@ struct State {
   friend std::ostream& operator<<(std::ostream &os, const State& state);
   
   // define the action in the 4 different directions
-  State swap_right(int vec_pos);
-  State swap_left(int vec_pos);
-  State swap_up(int vec_pos);
-  State swap_down(int vec_pos);
+  State swap(int vec_i1, int vec_i2);
   std::vector<State> do_swaps(int vec_pos);
 
   // functions for the algorithm
