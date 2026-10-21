@@ -20,8 +20,7 @@ int main(int argc, char* argv[]) {
 
   // playground
   State state(dim, engine);
-  State new_state = state.swap_right(0);
   std::cout << state;
-  std::cout << new_state;
+  state.simulate();
   return 0;
 }

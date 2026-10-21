@@ -39,4 +39,9 @@ struct State {
   State swap_left(int vec_pos);
   State swap_up(int vec_pos);
   State swap_down(int vec_pos);
+  std::vector<State> do_swaps(int vec_pos);
+
+  // functions for the algorithm
+  void iterate();
+  void simulate();
 };
