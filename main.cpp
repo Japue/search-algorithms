@@ -14,13 +14,12 @@ int main(int argc, char* argv[]) {
   const int dim = std::stoi(argv[1]);
   const int seed = std::stoi(argv[2]);
 
-  
   // setup the random input
   std::mt19937 engine(seed);
 
   // initialize the state, output it, simulate until 0 is found
   State state(dim, engine);
   std::cout << state;
-  state.simulate(engine);
+  state.simulate();
   return 0;
 }

@@ -97,7 +97,7 @@ void State::iterate() {
   cost = best_cost;
 }
 
-void State::simulate(std::mt19937& engine) {
+int State::simulate(std::mt19937& engine) {
   int retries = 0;
   while (cost != 0) {
     *this = State(grid.dim, engine);
@@ -110,4 +110,5 @@ void State::simulate(std::mt19937& engine) {
   }
   std::cout << *this;
   std::cout << "retries = " << retries << "\n \n";
+  return retries;
 }
